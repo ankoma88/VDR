@@ -12,4 +12,4 @@ If on Linux, just write in terminal: "soffice -headless -accept=\"socket,host=12
 This is needed by JODConverter API used in the project.
 
 Used technologies:
-Java EE: EJB, JSF, Primefaces components, Bootstrap.
+Java EE, EJB, JSF, Primefaces components, EclipseLink, Bootstrap.
