@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core" xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="/templates/main.xhtml">
+<ui:define name="content">
+
+    <h:form id="docs" enctype="multipart/form-data" onkeypress="if (event.keyCode == 13) {return false; }">
+        <p:treeTable value="#{projectController.root}" var="document">
+            <f:facet name="header">
+                <h:outputText value="#{projectController.currentProject.projectName}"/>
+            </f:facet>
+            <p:column headerText="Name" style="width: 90%">
+                <h:outputText value="#{document.name}" style="font-weight: bold" />
+            </p:column>
+            <p:column headerText="Size" style="width: 5%">
+                <h:outputText value="#{document.size}" />
+            </p:column>
+            <p:column headerText="Type" style="width: 5%">
+                <h:outputText value="#{document.type}" />
+            </p:column>
+
+            <p:column headerText="Open" >
+                <div align="center"> <p:commandButton value="Open" action="#{projectController.open}" icon="ui-icon-folder-open" rendered="#{not projectController.renderIfIsFolder()}">
+                    <f:attribute name="doc" value="#{document}"/>
+                </p:commandButton></div>
+            </p:column>
+
+            <p:column headerText="Download" rendered="#{projectController.currentUser.isAdmin or projectController.isMayDownload}" >
+            <p:commandButton ajax="false" value="Download" action="#{projectController.download}"  icon="ui-icon-arrowthick-1-s"  rendered="#{not projectController.renderIfIsFolder()}">
+                <f:attribute name="doc" value="#{document}"/>
+            </p:commandButton>
+            </p:column>
+
+            <p:column headerText="Comment">
+                <div align="center"> <p:commandButton icon="ui-icon-comment"  actionListener="#{projectController.openCommentDialog}">
+                    <f:attribute name="docName" value="#{document.name}"/> </p:commandButton></div>
+            </p:column>
+            
+            <p:column headerText="New folder" style="width: 10%" rendered="#{projectController.currentUser.isAdmin}">
+               <div align="center"> <p:commandButton icon="ui-icon-folder-collapsed"  actionListener="#{projectController.openCreateFolderDialog}" rendered="#{projectController.renderIfIsFolder()}">
+                <f:attribute name="docName" value="#{document.name}"/> </p:commandButton></div>
+            </p:column>
+
+            <p:column headerText="New document" style="width: 10%" rendered="#{projectController.currentUser.isAdmin}">
+                <div align="center"> <p:commandButton icon="ui-icon-document"  actionListener="#{projectController.openCreateDocumentDialog}" rendered="#{projectController.renderIfIsFolder()}" >
+                    <f:attribute name="docName" value="#{document.name}"/> </p:commandButton></div>
+            </p:column>
+
+            <p:column headerText="Delete" style="width: 5%" rendered="#{projectController.currentUser.isAdmin}">
+                <div align="center">  <p:commandButton icon="ui-icon-trash" actionListener="#{projectController.deleteNode}" update=":docs" rendered="#{projectController.renderComponentDelete()}" >
+                    <f:attribute name="docName" value="#{document.name}"/> </p:commandButton></div>
+            </p:column>
+
+            <f:facet name="footer">
+                <h:outputText value="Questions and Answers "/>
+                <p:commandButton icon="ui-icon-pencil" action="questionsAndAnswers?faces-redirect=true"/>
+            </f:facet>
+
+        </p:treeTable>
+
+        <p:dialog id="dialogFolder" header="Folder name: " showEffect="fade" widgetVar="createFolderDialog" modal="true" resizable="false">
+            <h:inputText value="#{projectController.fName}" id="folderName"/>
+            <p:commandButton icon="ui-icon-folder-collapsed"  actionListener="#{projectController.createFolder}" update=":docs"/>
+        </p:dialog>
+
+        <p:dialog id="dialogDocument" header="Document name: " showEffect="fade" widgetVar="createDocumentDialog" modal="true" resizable="false">
+            <p:growl id="messages" showDetail="true" />
+            <p:inputText value="#{projectController.dName}" id="documentName"/>
+            <p:fileUpload value="#{projectController.file}" mode="simple" skinSimple="true"/>
+            <p:commandButton value="Submit" ajax="false" actionListener="#{projectController.upload}" update=":docs"/>
+        </p:dialog>
+
+        <p:dialog id="dialogComment" header="Add comment to #{projectController.docName}: " showEffect="fade" modal="true" resizable="false" widgetVar="commentDialog">
+            <p:inputTextarea value="#{projectController.comment}" id="comment" rows="10" style="width: 400px" />
+            <div align="center"><p:commandButton value="Submit" ajax="false" actionListener="#{projectController.saveComment}"/></div>
+        </p:dialog>
+
+
+    </h:form>
+
+    <div class="container"></div>
+</ui:define>
+</ui:composition>
+</html>
+

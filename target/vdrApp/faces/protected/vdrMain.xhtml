@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core" xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="/templates/main.xhtml">
+    <ui:define name="content">
+        <div class="col-md-8 col-md-offset-2">
+            <div id="selectProjectform" class="panel panel-default">
+                <div class="panel-heading" align="center"><h3>Select project</h3></div>
+                <div align="center"><h:outputLink rendered="#{vdrMainController.currentUser.isAdmin eq true}"
+                                                  value="#createProjectForm" style="color: #ffffff">
+                    <h5>Create and edit projects</h5></h:outputLink></div>
+                <div class="panel-body">
+                    <h:form>
+                        <p:dataTable value="#{vdrMainController.usersProjects}" var="item">
+                            <p:column headerText="Project" style="width:10%">
+                                <h:outputText value="#{item.projectName}"/>
+                            </p:column>
+                            <p:column headerText="Description" style="width:20%">
+                                <h:outputText value="#{item.description}"/>
+                            </p:column>
+                            <p:column headerText="Admin" style="width: 10%">
+                                <h:outputText value="#{item.projectAdmin.userName}"/>
+                            </p:column>
+                            <p:column headerText="Users" style="width: 20%">
+                                <ui:repeat value="#{item.users}" var="us">
+                                    #{us}<br/>
+                                </ui:repeat>
+                            </p:column>
+                            <p:column headerText="Start date" style="width:15%">
+                                <h:outputText value="#{item.startDate}"/>
+                            </p:column>
+                            <p:column headerText="Expiration date" style="width: 15%">
+                                <h:outputText value="#{item.expirationDate}"/>
+                            </p:column>
+                            <p:column headerText="Logo" style="width: 10%">
+                                <p:graphicImage value="#{imageStreamer.image}" alt="no logo" class="gimage"
+                                                style="width:100px">
+                                    <f:param name="id" value="#{item.id}"/>
+                                </p:graphicImage>
+                            </p:column>
+                            <p:column headerText="Select" style="width: 10%">
+                                <div align="center"><p:commandButton style="color: #2b3e50" icon="ui-icon-triangle-1-e"
+                                                                     action="#{vdrMainController.goToProject}"
+                                                                     actionListener="#{vdrMainController.goToProjectListener}">
+                                    <f:attribute name="chosenProject" value="#{item.id}"/></p:commandButton></div>
+                            </p:column>
+                        </p:dataTable>
+                    </h:form>
+                </div>
+            </div>
+        </div>
+
+        <br/>
+
+
+        <h:form enctype="multipart/form-data" rendered="#{vdrMainController.currentUser.isAdmin eq true}">
+            <div class="col-md-8 col-md-offset-2">
+                <div id="createProjectform" class="panel panel-default">
+                    <div class="panel-heading" align="center"><h3>Create project</h3></div>
+                    <div class="panel-body">
+                        <table class="table table-striped">
+                            <tr>
+                                <td>
+                                    <h:outputLabel value="Project name" for="projectName"
+                                                   style="font-size: 18px;"/><br/>
+                                    <h:inputText id="projectName" value="#{newProject.projectName}" required="true"
+                                                 class="form-control" requiredMessage="Please, enter project name">
+                                        <f:passThroughAttribute name="placeholder" value="Project name"/>
+                                    </h:inputText>
+                                    <h:message for="projectName" styleClass="error_message"/>
+                                </td>
+                                <td colspan="2">
+                                    <h:outputLabel value="Description" for="description" style="font-size: 18px"/><br/>
+                                    <h:inputText id="description" style="resize: none" value="#{newProject.description}"
+                                                 required="true" class="form-control"
+                                                 requiredMessage="Please, add brief description">
+                                        <f:passThroughAttribute name="placeholder" value="Description"/>
+                                    </h:inputText>
+                                    <h:message for="description" styleClass="error_message"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <p:outputLabel value="Start date" for="startDate"
+                                                   style="font-size: 18px; font-family: Lato, Helvetica Neue, Helvetica, Arial, sans-serif "/><br/>
+                                    <p:calendar id="startDate" value="#{vdrMainController.sDate}" pattern="dd.MM.yyyy"
+                                                style="width:1.5em"/>
+                                </td>
+                                <td>
+                                    <p:outputLabel value="Expiration date" for="expDate"
+                                                   style="font-size: 18px; font-family: Lato, Helvetica Neue, Helvetica, Arial, sans-serif"/><br/>
+                                    <p:calendar id="expDate" value="#{vdrMainController.eDate}" pattern="dd.MM.yyyy"
+                                                style="width:1.5em"/>
+                                </td>
+                                <td>
+                                    <h:outputLabel value="Logo" for="logo" style="font-size: 18px"/><br/>
+                                    <h:inputFile id="logo" value="#{vdrMainController.filePart}"/>
+                                </td>
+                            </tr>
+                        </table>
+                        <div align="center">
+                            <h:commandButton value="Create project" style="font-weight: bold"
+                                             action="#{vdrMainController.setUp}"
+                                             actionListener="#{vdrMainController.createProject}"/></div>
+                    </div>
+                </div>
+            </div>
+        </h:form>
+        <br/>
+
+        <br/>
+
+        <div class="col-md-8 col-md-offset-2">
+            <table class="table table-striped">
+                <tr>
+                    <td><h:outputText id="informationMessage"
+                                      value="#{vdrMainController.infoMessage}"
+                                      rendered="#{vdrMainController.infoMessage ne null}"
+                                      class="informationMessage" style="font-size: 18px">
+                    </h:outputText></td>
+                </tr>
+            </table>
+        </div>
+        <br/>
+
+
+        <h:form id="manageUsers" rendered="#{vdrMainController.currentUser.isAdmin eq true}">
+            <div class="col-md-8 col-md-offset-2">
+                <div id="manageUsersForm" class="panel panel-default">
+                    <div class="panel-heading" align="center"><h3>Manage users</h3></div>
+                    <div class="panel-body">
+                        <table class="table table-striped">
+                            <tr>
+                                <td>
+                                    <h:outputText value="Project: " styleClass="h5"/>
+                                    <h:selectOneMenu value="#{vdrMainController.currentProjectId}"
+                                                     style="color: #000000">
+                                        <f:selectItems value="#{vdrMainController.usersProjects}" var="currentProject"
+                                                       itemValue="#{currentProject.id}"
+                                                       itemLabel="#{currentProject.projectName}"/>
+                                    </h:selectOneMenu>
+                                </td>
+                                <td>
+                                    <h:outputText value="User: " styleClass="h5"/>
+                                    <h:selectOneMenu value="#{vdrMainController.usrId}" style="color: #000000">
+                                        <f:selectItems value="#{vdrMainController.allUsers}" var="usr"
+                                                       itemValue="#{usr.id}"
+                                                       itemLabel="#{usr.firstName} #{usr.lastName}"/>
+                                    </h:selectOneMenu>
+                                </td>
+                                <td>
+                                    <h:selectOneRadio value="#{vdrMainController.isMayDownload}">
+                                        <f:selectItem itemValue="#{true}" itemLabel="Download permission"/>
+                                    </h:selectOneRadio>
+                                </td>
+
+                                <td>
+                                    <div align="center"><h:commandButton value="Assign user" style="font-weight: bold"
+                                                                         action="#{vdrMainController.assignUser}"
+                                                                         actionListener="#{vdrMainController.attrListener}">
+                                        <f:attribute name="editableUser"
+                                                     value="#{vdrMainController.usrId}"/></h:commandButton></div>
+                                </td>
+                                <td>
+                                    <div align="center"><h:commandButton value="Unassign user" style="font-weight: bold"
+                                                                         action="#{vdrMainController.unassignUser}"
+                                                                         actionListener="#{vdrMainController.attrListener}">
+                                        <f:attribute name="editableUser"
+                                                     value="#{vdrMainController.usrId}"/></h:commandButton></div>
+                                </td>
+                                <td>
+                                    <div align="center"><h:commandButton value="Delete project"
+                                                                         style="font-weight: bold"
+                                                                         actionListener="#{vdrMainController.deleteProjectListener}"/>
+                                    </div>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </h:form>
+
+
+        <div class="container"></div>
+    </ui:define>
+</ui:composition>
+
+
+</html>

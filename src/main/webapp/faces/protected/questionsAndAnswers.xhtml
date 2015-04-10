@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core" xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="/templates/main.xhtml">
+    <ui:define name="content">
+
+        <h:form id="commentsTable">
+            <p:dataTable value="#{questionsAndAnswersController.qAkeyList}" var="docAndUser">
+                <f:facet name="header">
+                    <h:outputText value="Questions and Answers: #{questionsAndAnswersController.currentProject.projectName}"/>
+                </f:facet>
+                <p:column headerText="Document reference" style="width: 10%">
+                    <h:outputText value="#{questionsAndAnswersController.showDoc()}" />
+                    <f:attribute name="docAndUser" value="#{docAndUser}"/>
+                </p:column>
+                <p:column headerText="Added by user" style="width: 10%">
+                    <h:outputText value="#{questionsAndAnswersController.showCommentator()}" />
+                    <f:attribute name="docAndUser" value="#{docAndUser}"/>
+                </p:column>
+                <p:column headerText="Comment" style="width: 70%">
+                    <h:outputText value="#{questionsAndAnswersController.showComment()}" />
+                    <f:attribute name="docAndUser" value="#{docAndUser}"/>
+                </p:column>
+                <p:column headerText="Answer" style="width: 10%">
+                    <div align="center"><p:commandButton icon="ui-icon-comment"  actionListener="#{questionsAndAnswersController.openAnswerDialog}">
+                    <f:attribute name="docAndUser" value="#{docAndUser}"/></p:commandButton></div>
+                </p:column>
+
+
+            </p:dataTable>
+
+            <p:dialog id="dialogAnswer" header="Answer: " showEffect="fade" modal="true" resizable="false" widgetVar="answerDialog">
+                <p:inputTextarea value="#{questionsAndAnswersController.comment}" id="comment" rows="10" style="width: 400px" />
+                <div align="center"><p:commandButton value="Submit" ajax="false" action="#{questionsAndAnswersController.setUp}" actionListener="#{questionsAndAnswersController.saveAnswer}"/></div>
+            </p:dialog>
+
+        </h:form>
+    </ui:define>
+</ui:composition>
+</html>

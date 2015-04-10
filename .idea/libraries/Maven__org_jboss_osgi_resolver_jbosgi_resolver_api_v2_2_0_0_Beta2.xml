@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="Maven: org.jboss.osgi.resolver:jbosgi-resolver-api-v2:2.0.0.Beta2">
+    <CLASSES>
+      <root url="jar://$MAVEN_REPOSITORY$/org/jboss/osgi/resolver/jbosgi-resolver-api-v2/2.0.0.Beta2/jbosgi-resolver-api-v2-2.0.0.Beta2.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$MAVEN_REPOSITORY$/org/jboss/osgi/resolver/jbosgi-resolver-api-v2/2.0.0.Beta2/jbosgi-resolver-api-v2-2.0.0.Beta2-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$MAVEN_REPOSITORY$/org/jboss/osgi/resolver/jbosgi-resolver-api-v2/2.0.0.Beta2/jbosgi-resolver-api-v2-2.0.0.Beta2-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

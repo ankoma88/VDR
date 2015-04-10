@@ -1,0 +1,14 @@
+<component name="ArtifactManager">
+  <artifact type="exploded-ear" name="VDR:ear exploded">
+    <output-path>$PROJECT_DIR$/out/artifacts/VDR_ear_exploded</output-path>
+    <root id="root">
+      <element id="javaee-facet-resources" facet="VDR/javaeeApplication/javaEEApplication" />
+      <element id="directory" name="ejb.jar">
+        <element id="artifact" artifact-name="VDR:ejb exploded" />
+      </element>
+      <element id="directory" name="lib">
+        <element id="library" level="project" name="PrimeFaces-3.4.1" />
+      </element>
+    </root>
+  </artifact>
+</component>

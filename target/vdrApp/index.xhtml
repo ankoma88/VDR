@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+
+<ui:composition template="/templates/main.xhtml">
+    <ui:define name="content">
+        <div class="container-fluid">
+            <div class="jumbotron">
+                <div align="center"><h1>Virtual Data Room</h1></div><br/>
+            <div class="row">
+                <div class="col-lg-4 col-md-6 col-xs-12">
+                    <!--<a href="#">-->
+                        <img src="resources/img/img1.jpg" class="thumbnail img-responsive" alt="..."/>
+                    <!--</a>-->
+                    <h4>VDR provides a full storage solution for your documents, which allows for easy uploads, sharing and distribution. Work with your team in a secure documentation workspace.</h4>
+                </div>
+                <div class="col-lg-4 col-md-6 col-xs-12">
+                    <!--<a href="#">-->
+                        <img src="resources/img/img2.jpg" class="thumbnail img-responsive" alt="..."/>
+                    <!--</a>-->
+                    <h4>An intuitive user interface allows you to easily add documents, create folders, manage the file structure and manage users minutes.  We have invested time in user experience design to ensure that setting up your data room is a simple process.</h4>
+                </div>
+                <div class="col-lg-4 col-md-6 col-xs-12">
+                    <!--<a href="#">-->
+                        <img src="resources/img/img3.jpg" class="thumbnail img-responsive" alt="..."/>
+                    <!--</a>-->
+                    <h4>VDR supports all major file formats, which are converted and streamed to allow you to control access and protect information. Mitigate and avoid document leaks with watermarks.</h4>
+                </div>
+                </div><br/>
+                <div align="center"><a class="btn btn-primary btn-lg" href="#{request.contextPath}/login.xhtml" >Login</a></div>
+            </div>
+        </div>
+        
+    </ui:define>
+</ui:composition>
+
+</html>

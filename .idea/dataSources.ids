@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component name="dataSourceStorage">
+  <data-source name="MySQL - vdrDB@localhost" uuid="81bee377-8386-4122-b742-f2382bddc8a8">
+    <database-info product="MySQL" version="5.5.41-0ubuntu0.14.04.1" jdbc-version="4.0" driver-name="MySQL Connector Java" driver-version="mysql-connector-java-5.1.34 ( Revision: jess.balint@oracle.com-20141014163213-wqbwpf1ok2kvo1om )">
+      <extra-name-characters>#@</extra-name-characters>
+      <identifier-quote-string>`</identifier-quote-string>
+    </database-info>
+    <case-sensitivity plain-identifiers="exact" quoted-identifiers="exact"/>
+    <schema name="" catalog="vdrDB"/>
+    <table name="PROJECT" schema="" catalog="vdrDB" type="TABLE">
+      <column name="PROJECT_ID" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="DESCRIPTION" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="EXPIRATION_DATE" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="LOGO" sqlType="LONGBLOB" precision="2147483647" scale="0" nullable="true" jdbcType="-4"/>
+      <column name="PROJECT_NAME" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="START_DATE" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="PROJECT_ADMIN" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <column name="DOCMAP" sqlType="LONGBLOB" precision="2147483647" scale="0" nullable="true" jdbcType="-4"/>
+      <column name="COMMENTS" sqlType="LONGBLOB" precision="2147483647" scale="0" nullable="true" jdbcType="-4"/>
+      <primary-key name="PRIMARY" columns="PROJECT_ID"/>
+      <foreign-key name="FK_PROJECT_PROJECT_ADMIN" columns="PROJECT_ADMIN" ref-table="VDR_USER" ref-schema="" ref-catalog="vdrDB" ref-columns="ID" update-rule="3" delete-rule="3" deferrability="2"/>
+      <exported-key name="FK_PROJECT_VDR_USER_projects_PROJECT_ID" table="PROJECT_VDR_USER" schema="" catalog="vdrDB" columns="projects_PROJECT_ID"/>
+      <index name="FK_PROJECT_PROJECT_ADMIN" unique="false" columns="PROJECT_ADMIN"/>
+    </table>
+    <table name="PROJECT_VDR_USER" schema="" catalog="vdrDB" type="TABLE">
+      <column name="projects_PROJECT_ID" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="users_ID" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <primary-key name="PRIMARY" columns="projects_PROJECT_ID,users_ID"/>
+      <foreign-key name="FK_PROJECT_VDR_USER_projects_PROJECT_ID" columns="projects_PROJECT_ID" ref-table="PROJECT" ref-schema="" ref-catalog="vdrDB" ref-columns="PROJECT_ID" update-rule="3" delete-rule="3" deferrability="2"/>
+      <foreign-key name="FK_PROJECT_VDR_USER_users_ID" columns="users_ID" ref-table="VDR_USER" ref-schema="" ref-catalog="vdrDB" ref-columns="ID" update-rule="3" delete-rule="3" deferrability="2"/>
+      <index name="FK_PROJECT_VDR_USER_users_ID" unique="false" columns="users_ID"/>
+    </table>
+    <table name="VDR_USER" schema="" catalog="vdrDB" type="TABLE">
+      <column name="ID" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="COMPANY" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="FIRST_NAME" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="ISADMIN" sqlType="TINYINT" precision="3" scale="0" nullable="true" jdbcType="-6" def="MA=="/>
+      <column name="LAST_NAME" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="PASSWORD" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="PHONE" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="USER_NAME" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="DOWNLOADPERMISSION" sqlType="TINYINT" precision="3" scale="0" nullable="false" jdbcType="-6" def="MA=="/>
+      <primary-key name="PRIMARY" columns="ID"/>
+      <exported-key name="FK_PROJECT_PROJECT_ADMIN" table="PROJECT" schema="" catalog="vdrDB" columns="PROJECT_ADMIN"/>
+      <exported-key name="FK_PROJECT_VDR_USER_users_ID" table="PROJECT_VDR_USER" schema="" catalog="vdrDB" columns="users_ID"/>
+    </table>
+  </data-source>
+</component>

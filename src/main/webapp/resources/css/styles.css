@@ -1,0 +1,67 @@
+html,body{
+    margin:0;
+    padding:0;
+    height:100%;
+}
+
+.error_message {
+    color: orangered;
+    font-family: Tahoma, Arial;
+    font-size: 1.5em;
+    font-weight: bolder;
+}
+
+.informationMessage {
+    color: orange;
+    font-family: Tahoma, Arial;
+    font-size: 1.5em;
+    font-weight: bolder;
+}
+
+.center {
+    float: none;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+    align-content: center;
+}
+
+#footer {
+    position:absolute;
+    bottom:0;
+    width:100%;
+    height:20px; /* Height of the footer */
+}
+
+#container {
+    min-height:100%;
+    position:relative;
+}
+
+
+.gimage {
+    max-width:100px;
+    max-height:100px;
+    align-content: center;
+    align-items: center;
+}
+
+.ui-datatable thead th,
+.ui-datatable tbody,
+.ui-datatable tbody tr,
+.ui-datatable tbody td {
+    font-family: "Lato", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: large;
+    font-weight: 500;
+    align-content: center;
+}
+
+.fixed-size {
+    table-layout: fixed;
+    word-wrap: break-word;
+}
+
+
+
+
+
