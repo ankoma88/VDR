@@ -10,6 +10,7 @@ Requirements: Java EE 7 SDK, MySQL database, Maven. Tested on Glassfish 4.1.
 Before starting the application an instance of StartOpenOffice.org should be running on port 8100. 
 If on Linux, just write in terminal: "soffice -headless -accept=\"socket,host=127.0.0.1,port=8100;urp;\" -nofirststartwizard;
 This is needed by JODConverter API used in the project.
+Also you need to specify folder for storage of documents and write the path to storage in Constants class.
 
 Used technologies:
 Java EE, EJB, JSF, Primefaces components, EclipseLink, Bootstrap.
